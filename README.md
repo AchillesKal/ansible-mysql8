@@ -1,7 +1,7 @@
-Role Name
+Ansible Role: Debian-Mysql8
 =========
 
-A brief description of the role goes here.
+A simple Ansible role that installs MySQL database on Debian servers.
 
 Requirements
 ------------
