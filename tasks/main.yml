@@ -1,2 +1,28 @@
 ---
-# tasks file for ansible-mysql8
+- name: Debian Stretch requires dirmngr package to be installed in order to use the apt-key
+  apt:
+    name: dirmngr
+    state: present
+
+- name: install python mysql bindings
+  apt: name=python3-mysqldb state=installed
+  become: yes
+  become_method: sudo
+
+- name: Add PGP key
+  apt_key:
+    keyserver: pgp.mit.edu
+    id: 5072E1F5
+
+- name: Add official APT repository
+  become: true
+  apt_repository:
+    repo: "deb http://repo.mysql.com/apt/debian/ stretch mysql-8.0"
+    update_cache: yes
+
+- name: Install mysql-server
+  become: true
+  apt:
+    name: mysql-server
+    state: latest
+    update_cache: yes
